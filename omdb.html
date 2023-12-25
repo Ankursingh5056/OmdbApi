@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMDB</title>
+</head>
+<body>
+    <h1 id="app">Movie search </h1>
+    <button id="btn" onclick = "displayMovie()">SEarch movie</button>
+    <input type="text" placeholder="enter movie" id="cont">
+    <div id="result">result</div>
+</body>
+
+</html>
+<script>
+    let container = document.getElementById("cont")
+
+    let display = document.getElementById("result")
+
+    let moviedata = []
+
+    async function displayMovie() {
+        try {
+            let response = await fetch("https://www.omdbapi.com/?i=tt3896198&apikey=534dd329")
+            let data = await response.json()
+            moviedata.push(data)
+            ShowMovie(moviedata)
+        } catch (error) {
+            console.log("something went wrong")
+        }
+    }
+
+    function ShowMovie(m_data) {
+        m_data.forEach((info) => {
+
+            let div = document.createElement("div")
+            div.className = "box"
+
+            let title = document.createElement("p")
+            title.textContent = info.Title
+
+            let image = document.createElement("img")
+            image.src = info.Poster
+
+            div.appendChild(title)
+            div.appendChild(image)
+            display.appendChild(div)
+
+
+        })
+    }
+
+    
+        
+
+
+
+
+   
+</script>
